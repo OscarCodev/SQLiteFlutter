@@ -14,16 +14,16 @@ abstract class CRUD{
    return await db.rawQuery(sql,arguments);
   }
 
-  update(Map<String,dynamic>data)async{
-    final db=await database;
+  update(Map<String,dynamic> data )async{
+    final db = await database;
     return await db.update(table, data,where: "id =?",whereArgs: [data["id"]]);
   }
 
-  insert(Map<String,dynamic>data)async{
+  insert(Map<String,dynamic> data )async{
     final db=await database;
     return await db.insert(table, data);
-
   }
+  
   delete(int id)async{
     final db=await database;
     return await db.delete(table,where: "id =?",whereArgs: [id]);
