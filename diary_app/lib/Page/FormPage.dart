@@ -1,7 +1,9 @@
 import 'package:diary_app/Modelo/Diary.dart';
 import 'package:diary_app/Modelo/Page.dart';
 import 'package:flutter/material.dart';
+
 typedef VoidCallbackParam(Page page);
+
 class FormPage extends StatefulWidget{
   Diary diary;
   Page page;
@@ -22,11 +24,11 @@ class FormPageState extends State<FormPage>{
 
   @override
   void initState() {
-    if(page!=null){
-      ctrlDate.text=page.date;
-      ctrlTitle.text=page.title;
-      ctrlContent.text=page.content;
-    }else{
+    if(page!=null){ //Si se va actualizar
+      ctrlDate.text = page.date;
+      ctrlTitle.text = page.title;
+      ctrlContent.text = page.content;
+    }else{ //Si es una pagina nueva
       ctrlDate.text=DateTime.now().toString().substring(0,11);
     }
   }
@@ -68,14 +70,17 @@ class FormPageState extends State<FormPage>{
     ));
   }
   getTextBox(){
-    page=(page!=null)?page:Page(diaryId: widget.diary.id);
-    page.title=ctrlTitle.text;
-    page.content=ctrlContent.text;
-    page.date=ctrlDate.text;
+    page= (page != null) ? page : Page(diaryId: widget.diary.id);
+    page.title = ctrlTitle.text;
+    page.content = ctrlContent.text;
+    page.date = ctrlDate.text;
   }
+
   save()async{
+
     getTextBox();
-    Page page=await this.page.saveOrUpdate();
+
+    Page page = await this.page.saveOrUpdate();
 
     if(page!=null){
       widget.voidCallbackParam(page);

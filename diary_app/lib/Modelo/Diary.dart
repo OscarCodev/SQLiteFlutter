@@ -5,6 +5,7 @@ class Diary extends CRUD{
   int id;
   String type;
   String enterCode;
+
   Diary({this.id,this.type="",this.enterCode=""}):super(DBTable.DIARY);
 
   // {} -> Diary()
@@ -34,10 +35,10 @@ class Diary extends CRUD{
   // {} -> DB
   save()async{
    this.id= await insert(this.toMap());
-   return(this.id>0)?this:null;
+   return(this.id>0) ?this:null; // Si todo ha ido bien va retornar el objeto
   }
 
-  // DB -> [[Diary(),Diary(),Diary()]]
+  // DB -> [Diary(),Diary(),Diary()]
   Future<List<Diary>>getDiaries()async{
    var result= await query("SELECT * FROM ${DBTable.DIARY}");
    return getList(result);

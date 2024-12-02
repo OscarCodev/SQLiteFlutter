@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 
 class LockScreen extends StatefulWidget{
   List<Diary>diaries;
+
   LockScreen(this.diaries);
   @override
   State<StatefulWidget> createState() =>LockScreenState(this.diaries);
@@ -12,24 +13,26 @@ class LockScreen extends StatefulWidget{
 }
 
 class LockScreenState extends State<LockScreen>{
-  List<Diary>diaries;
+
   LockScreenState(this.diaries);
-  bool isNewDiary=false;
-  TextEditingController ctrlType=TextEditingController();
-  TextEditingController ctrlCode=TextEditingController();
-  Diary dropDownValue=Diary();
+  List<Diary> diaries;
+  bool isNewDiary = false;
+  TextEditingController ctrlType = TextEditingController();
+  TextEditingController ctrlCode = TextEditingController();
+  Diary dropDownValue = Diary();
+
   @override
   void initState() {
-    isNewDiary=diaries==null;
-    dropDownValue=(diaries!=null)?diaries[0]:Diary();
+    isNewDiary = diaries == null; // si diaries esta vacio [] isNewDiary va ser True de lo contrario si esta lleno va ser False
+    dropDownValue = ( diaries != null) ? diaries[0] : Diary(); //Si diaries tiene contenido retorna el primer valor de lo contrario si esta vacio retona una instancia de Diary
   }
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Column(children: <Widget>[
-      Visibility(visible: !isNewDiary,child: dropDownButton(),),
-      Visibility(visible:isNewDiary,child: TextFormField(
+      Visibility(visible: !isNewDiary , child: dropDownButton(),),
+      Visibility(visible: isNewDiary, child: TextFormField(
         decoration: InputDecoration(
             hintText: "Tipo de diario"
         ),
@@ -47,7 +50,7 @@ class LockScreenState extends State<LockScreen>{
       FlatButton(color: Colors.pinkAccent,
         child: Text(isNewDiary?"Guardar":"Desbloquear",
         style: TextStyle(color: Colors.white,fontSize: 13),),
-        onPressed: isNewDiary?save:unlock,
+        onPressed: isNewDiary? save : unlock,
       )
     ],);
   }
@@ -65,6 +68,7 @@ class LockScreenState extends State<LockScreen>{
     }
     ).toList()):SizedBox.shrink();
   }
+
   onChangedDiary(Diary diary){
     setState(() {
       this.dropDownValue=diary;
@@ -72,16 +76,20 @@ class LockScreenState extends State<LockScreen>{
   }
 
   save()async{
-    Diary diary=await Diary(type: ctrlType.text,enterCode: ctrlCode.text).save();
-    if(diary!=null){
+    Diary diary = await Diary(type: ctrlType.text,enterCode: ctrlCode.text).save();
+    if(diary != null){
       goHome(diary);
     }
   }
-  unlock()async{
-    Diary diary=await dropDownValue.checkEnterCode(ctrlCode.text);
-    if(diary!=null)goHome(diary);
+
+  unlock()async{ 
+    Diary diary = await dropDownValue.checkEnterCode(ctrlCode.text);
+    if(diary != null){
+      goHome(diary)
+    } ;
   }
+
   goHome(Diary diary){
-    Navigator.push(context, MaterialPageRoute(builder: (context)=>MyHomePage(diary)));
+    Navigator.push(context, MaterialPageRoute(builder: (context)=> MyHomePage(diary)));
   }
 }

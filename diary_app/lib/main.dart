@@ -15,12 +15,14 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home:SafeArea(child:Scaffold(body:
-      Center(child:FutureBuilder<List<Diary>>(
-       future: Diary().getDiaries(),
+      Center( child: FutureBuilder<List<Diary>> 
+      (
+        future: Diary().getDiaries(),
         initialData: List(),
-        builder: (BuildContext context,AsyncSnapshot snapshot){
-         return (snapshot.connectionState==ConnectionState.done)?
-             LockScreen(snapshot.data):CircularProgressIndicator();
+        builder: (BuildContext context, AsyncSnapshot snapshot){
+         return (snapshot.connectionState == ConnectionState.done) ?
+             LockScreen(snapshot.data): //Pantalla de bloqueo 
+             CircularProgressIndicator();
         },
       ))))
 

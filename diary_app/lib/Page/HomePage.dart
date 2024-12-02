@@ -14,12 +14,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List<Page> pages;
 
-  void goForm() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => FormPage(addPage,diary: widget.diary,)));
-  }
+  List<Page> pages;
 
   @override
   Widget build(BuildContext context) {
@@ -52,11 +48,16 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  void goForm() {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => FormPage(addPage,diary: widget.diary,)));
+  }
+
   getListView() {
     return ListView.builder(
         itemCount: pages.length,
         itemBuilder: (BuildContext context, int index) {
-          Page page=pages[index];
+          Page page = pages[index];
           return Dismissible(
               key:ObjectKey(page),
               onDismissed: (direction){
