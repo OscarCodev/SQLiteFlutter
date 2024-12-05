@@ -34,7 +34,7 @@ class Diary extends CRUD{
   // Inserta un mapa a la DB
   // {} -> DB
   save()async{
-   this.id= await insert(this.toMap());
+   this.id = await insert(this.toMap());
    return(this.id>0) ?this:null; // Si todo ha ido bien va retornar el objeto
   }
 

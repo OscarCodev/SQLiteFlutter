@@ -12,7 +12,7 @@ class FormPage extends StatefulWidget{
   @override
   State<StatefulWidget> createState() => FormPageState(this.page);
 
-}
+}   
 
 class FormPageState extends State<FormPage>{
   Page page;

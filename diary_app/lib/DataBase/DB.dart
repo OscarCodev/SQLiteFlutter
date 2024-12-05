@@ -2,11 +2,14 @@ import 'package:diary_app/DataBase/DBMigrator.dart';
 import 'package:diary_app/DataBase/DBTable.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
+
+//Esta clase a traves de su método open nos retorna la base de datos
+
 class DB{
 
   String name="DiaryApp";
   int version=2;
-  Future<Database>open()async{
+  Future<Database> open() async{
     String path=join(await getDatabasesPath(),name);
    return openDatabase(path,
     version: version,
